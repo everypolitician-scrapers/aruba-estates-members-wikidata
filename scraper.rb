@@ -1,7 +1,10 @@
 #!/bin/env ruby
 # encoding: utf-8
 
+require 'everypolitician'
 require 'wikidata/fetcher'
-names = WikiData::Category.new( 'Category:Members of the Estates of Aruba', 'en').member_titles
-EveryPolitician::Wikidata.scrape_wikidata(names: { en: names })
 
+query = 'SELECT DISTINCT ?item { ?item p:P39/ps:P39 wd:Q52802973 }'
+ids = EveryPolitician::Wikidata.sparql(query)
+
+EveryPolitician::Wikidata.scrape_wikidata(ids: ids)
